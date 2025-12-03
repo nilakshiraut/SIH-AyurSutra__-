@@ -2,8 +2,8 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #0a0a0a;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(249, 255, 251, 0.92);
+  border-bottom: 1px solid rgba(209, 231, 221, 0.9);
   transition: all 0.3s ease;
 }
 
@@ -31,7 +31,7 @@
 .logo-icon-box {
   width: 40px;
   height: 40px;
-  background: #ff6b35;
+  background: #0c5e3f;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -41,7 +41,8 @@
 
 .logo-heart {
   font-size: 1.5rem;
-  filter: brightness(0) invert(1);
+  filter: brightness(1) invert(0);
+  color: #f9fffb;
 }
 
 .logo-text-container {
@@ -53,13 +54,13 @@
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0c5e3f;
   letter-spacing: 0.05em;
 }
 
 .logo-tagline {
   font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(21, 52, 42, 0.7);
   font-weight: 400;
   letter-spacing: 0.05em;
 }
@@ -72,7 +73,7 @@
 
 .nav-link {
   text-decoration: none;
-  color: #ffffff;
+  color: #15342a;
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 8px;
@@ -83,11 +84,11 @@
 }
 
 .nav-link:hover {
-  color: #ff6b35;
+  color: #0c5e3f;
 }
 
 .nav-link.active {
-  color: #ff6b35;
+  color: #0c5e3f;
   font-weight: 600;
 }
 

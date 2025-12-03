@@ -140,6 +140,13 @@ const ChatContainer = () => {
 
   return (
     <div className="chat-container" ref={containerRef}>
+      <div className="chat-header-strip">
+        <div className="chat-header-title">AyurSutra Virtual Assistant</div>
+        <p className="chat-header-subtitle">
+          Ask anything about your Ayurvedic wellness journey
+        </p>
+      </div>
+
       <div className="chat-messages">
         {messages.length === 0 && (
           <div className="chat-welcome">
@@ -149,29 +156,38 @@ const ChatContainer = () => {
           </div>
         )}
         {messages.map((message) => (
-          <MessageBubble key={message.id} message={message} onOptionSelect={handleSendMessage} />
+          <MessageBubble
+            key={message.id}
+            message={message}
+            onOptionSelect={handleSendMessage}
+          />
         ))}
         {isTyping && <TypingIndicator />}
         <div ref={messagesEndRef} />
       </div>
-      {assessmentProgress && (
-        <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${(assessmentProgress.current / assessmentProgress.total) * 100}%` }}
-          />
-          <span className="progress-text">
-            Question {assessmentProgress.current} of {assessmentProgress.total}
-          </span>
-        </div>
-      )}
-      {!isConnected && (
-        <div className="connection-status">
-          <span className="status-indicator">●</span>
-          <span>Connecting to AyurSutra Bot...</span>
-        </div>
-      )}
-      <InputBox onSend={handleSendMessage} disabled={!isConnected} />
+
+      <div className="chat-bottom">
+        {!isConnected && (
+          <div className="connection-status">
+            <span className="status-indicator">●</span>
+            <span>Connecting to AyurSutra Bot...</span>
+          </div>
+        )}
+        {assessmentProgress && (
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{
+                width: `${(assessmentProgress.current / assessmentProgress.total) * 100}%`
+              }}
+            />
+            <span className="progress-text">
+              Question {assessmentProgress.current} of {assessmentProgress.total}
+            </span>
+          </div>
+        )}
+        <InputBox onSend={handleSendMessage} disabled={!isConnected} />
+      </div>
     </div>
   )
 }

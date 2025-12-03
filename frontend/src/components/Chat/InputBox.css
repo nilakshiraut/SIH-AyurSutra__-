@@ -1,25 +1,22 @@
 .input-box {
-  padding: 1.5rem;
-  background: rgba(20, 20, 20, 0.8);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 107, 53, 0.2);
+  padding: 0.75rem 1.25rem 0 1.25rem;
 }
 
 .input-wrapper {
   display: flex;
   gap: 0.75rem;
   align-items: center;
-  background: #2a2a2a;
-  border-radius: 25px;
+  background: #ffffff;
+  border-radius: 999px;
   padding: 0.5rem 0.5rem 0.5rem 1.25rem;
-  border: 2px solid #ff6b35;
-  box-shadow: 0 0 20px rgba(255, 107, 53, 0.4), 0 0 40px rgba(255, 107, 53, 0.2);
+  border: 1.5px solid #0c5e3f;
+  box-shadow: 0 4px 14px rgba(12, 83, 52, 0.18);
   transition: all 0.3s ease;
 }
 
 .input-wrapper:focus-within {
-  border-color: #ff6b35;
-  box-shadow: 0 0 25px rgba(255, 107, 53, 0.6), 0 0 50px rgba(255, 107, 53, 0.3);
+  border-color: #16a34a;
+  box-shadow: 0 6px 18px rgba(12, 83, 52, 0.28);
 }
 
 .message-input {
@@ -28,12 +25,12 @@
   outline: none;
   font-size: 1rem;
   background: transparent;
-  color: #ffffff;
+  color: #0c5e3f;
   font-family: inherit;
 }
 
 .message-input::placeholder {
-  color: #999;
+  color: #9ca3af;
 }
 
 .send-button {
@@ -41,20 +38,19 @@
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: #ff8555;
-  color: #e0e0e0;
+  background: linear-gradient(135deg, #0c5e3f 0%, #16a34a 60%, #8dd3b2 100%);
+  color: #e5f5ec;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 4px 12px rgba(12, 83, 52, 0.35);
 }
 
 .send-button:hover:not(:disabled) {
   transform: scale(1.1) rotate(15deg);
-  background: #ff8555;
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.5);
+  box-shadow: 0 6px 16px rgba(12, 83, 52, 0.4);
 }
 
 .send-button:active:not(:disabled) {
@@ -68,12 +64,12 @@
 
 .send-icon {
   font-size: 1rem;
-  filter: grayscale(100%) brightness(0.9);
+  filter: brightness(0.95);
 }
 
 @media (max-width: 768px) {
   .input-box {
-    padding: 1rem;
+    padding: 0.75rem 1rem 0 1rem;
   }
   
   .input-wrapper {

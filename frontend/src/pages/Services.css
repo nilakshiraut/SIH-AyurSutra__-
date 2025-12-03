@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #0a0a0a;
-  color: #ffffff;
+  background: transparent;
+  color: #15342a;
 }
 
 .services-main {
@@ -20,13 +20,13 @@
   font-size: 3rem;
   font-weight: 800;
   margin: 0 0 1rem 0;
-  color: #ffffff;
+  color: #15342a;
 }
 
 .title-underline {
   width: 80px;
   height: 4px;
-  background: #ff6b35;
+  background: #0c5e3f;
   margin-bottom: 3rem;
 }
 
@@ -37,8 +37,8 @@
 }
 
 .service-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #f9fffb;
+  border: 1px solid rgba(12, 94, 63, 0.16);
   border-radius: 16px;
   padding: 2rem;
   transition: all 0.3s ease;
@@ -48,10 +48,10 @@
 }
 
 .service-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: #ff6b35;
+  background: #edf7f1;
+  border-color: #0c5e3f;
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+  box-shadow: 0 10px 30px rgba(12, 94, 63, 0.2);
 }
 
 .service-icon {
@@ -62,14 +62,14 @@
 .service-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #15342a;
   margin: 0;
 }
 
 .service-description {
   font-size: 1rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(21, 52, 42, 0.8);
   margin: 0;
   flex: 1;
 }
@@ -77,8 +77,8 @@
 .service-button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background: #ff6b35;
-  color: #ffffff;
+  background: #0c5e3f;
+  color: #f9fffb;
   text-decoration: none;
   border-radius: 8px;
   font-weight: 600;
@@ -88,9 +88,9 @@
 }
 
 .service-button:hover {
-  background: #ff8555;
+  background: #16a34a;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 15px rgba(12, 94, 63, 0.3);
 }
 
 @media (max-width: 768px) {

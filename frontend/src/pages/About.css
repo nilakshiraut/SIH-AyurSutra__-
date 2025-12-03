@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #0a0a0a;
-  color: #ffffff;
+  background: transparent;
+  color: #15342a;
 }
 
 .about-main {
@@ -26,14 +26,14 @@
   font-size: 3rem;
   font-weight: 800;
   margin: 0 0 1rem 0;
-  color: #ffffff;
+  color: #15342a;
   text-align: center;
 }
 
 .title-underline {
   width: 80px;
   height: 4px;
-  background: #ff6b35;
+  background: #0c5e3f;
   margin: 0 auto 1.5rem;
 }
 
@@ -79,7 +79,7 @@
 .about-description {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(21, 52, 42, 0.88);
   margin: 0;
  text-align: justify;
  hyphens: auto;
@@ -88,12 +88,12 @@
 .solutions-section {
   margin-top: 3rem;
   padding-top: 3rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(209, 231, 221, 0.9);
 }
 
 .solutions-title {
   font-size: 1.5rem;
-  color: #ff6b35;
+  color: #0c5e3f;
   font-weight: 700;
   margin-bottom: 2rem;
   letter-spacing: 0.05em;
@@ -105,23 +105,23 @@
   gap: 1.5rem;
   margin-bottom: 2.5rem;
   align-items: flex-start;
-  background: rgba(20, 20, 20, 0.5);
+  background: #f9fffb;
   padding: 1.5rem;
   border-radius: 12px;
-  border: 1px solid rgba(255, 107, 53, 0.2);
+  border: 1px solid rgba(12, 94, 63, 0.2);
   transition: all 0.3s ease;
 }
 
 .solution-step:hover {
-  border-color: rgba(255, 107, 53, 0.4);
-  background: rgba(20, 20, 20, 0.7);
+  border-color: rgba(12, 94, 63, 0.45);
+  background: #edf7f1;
   transform: translateX(5px);
 }
 
 .step-icon {
   width: 32px;
   height: 32px;
-  background: #ff6b35;
+  background: #0c5e3f;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -139,14 +139,14 @@
 .step-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #15342a;
   margin: 0 0 0.5rem 0;
 }
 
 .step-description {
   font-size: 1rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(21, 52, 42, 0.85);
   margin: 0 0 1rem 0;
 }
 
@@ -172,25 +172,25 @@
 }
 
 .see-dosha-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(12, 94, 63, 0.04);
+  color: #0c5e3f;
+  border: 1px solid rgba(12, 94, 63, 0.2);
 }
 
 .see-dosha-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(12, 94, 63, 0.08);
   transform: translateY(-2px);
 }
 
 .chat-bot-btn {
-  background: #ff6b35;
-  color: #ffffff;
+  background: #0c5e3f;
+  color: #f9fffb;
 }
 
 .chat-bot-btn:hover {
-  background: #ff8555;
+  background: #16a34a;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 15px rgba(12, 94, 63, 0.3);
 }
 
 @media (max-width: 768px) {

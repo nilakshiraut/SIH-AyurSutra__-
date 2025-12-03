@@ -55,7 +55,6 @@ const Chat = () => {
       <Header />
       <main className="chat-main">
         <div className="chat-wrapper">
-          <ChatContainer />
           {assessmentComplete && (
             <div className="results-section">
               <DoshaResult doshaResults={doshaResults} />
@@ -103,6 +102,7 @@ const Chat = () => {
               </div>
             </div>
           )}
+          <ChatContainer />
         </div>
       </main>
       <Footer />

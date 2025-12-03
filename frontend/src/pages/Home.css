@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to right, rgba(255, 107, 53, 0.15) 0%, #0a0a0a 60%, #0a0a0a 100%);
-  color: #ffffff;
+  background: transparent;
+  color: #15342a;
 }
 
 .home-main {
@@ -48,7 +48,7 @@
 .title-icon-box {
   width: 60px;
   height: 60px;
-  background: #ff6b35;
+  background: #0c5e3f;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -62,13 +62,13 @@
   bottom: 10px; 
   right: 10px; 
   padding: 8px 15px;
-  background: #ff6b35;
-  color: #ffffff;
+  background: #0c5e3f;
+  color: #f9fffb;
   border-radius: 50px;
   font-size: 0.9rem;
   text-decoration: none;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 4px 10px rgba(53, 255, 56, 0.4);
 }
 
 .title-heart {
@@ -80,7 +80,7 @@
   font-size: 4rem;
   font-weight: 800;
   margin: 0;
-  color: #ffffff;
+  color: #15342a;
   line-height: 1.1;
 }
 
@@ -88,7 +88,7 @@
 .home-subtitle {
   font-size: 1.5rem;              
   font-weight: 700;              
-  color: #ff6b35;                 
+  color: #0c5e3f;                 
   text-transform: uppercase;      
   letter-spacing: 0.05em;         
   padding: 0.5rem 0;              
@@ -98,7 +98,7 @@
 
 .home-description {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(21, 52, 42, 0.85);
   line-height: 1.8;
   margin: 0;
   max-width: none;
@@ -109,8 +109,8 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.65rem 2rem;
-  background: #ff6b35;
-  color: #ffffff;
+  background: #0c5e3f;
+  color: #f9fffb;
   text-decoration: none;
   border-radius: 15px;
   font-size: 1rem;
@@ -122,9 +122,9 @@
 }
 
 .open-chat-button:hover {
-  background: #ff8555;
+  background: #16a34a;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 8px 20px rgba(12, 94, 63, 0.28);
 }
 
 .chat-icon {
@@ -150,7 +150,7 @@
 
 .about-section {
   padding: 6rem 2rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(249, 255, 251, 0.9);
 }
 
 .section-container {
@@ -162,21 +162,21 @@
   font-size: 3rem;
   font-weight: 800;
   margin: 0 0 1rem 0;
-  color: #ffffff;
+  color: #15342a;
   text-align: center;
 }
 
 .title-underline {
   width: 80px;
   height: 4px;
-  background: #ff6b35;
+  background: #0c5e3f;
   margin: 0 auto 3rem;
 }
 
 .about-text {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(21, 52, 42, 0.85);
   margin: 0 0 1.5rem 0;
   text-align: center;
   
@@ -187,12 +187,12 @@
 
 .dosha-cards-section {
   padding: 6rem 2rem;
-  background: #0a0a0a;
+  background: #f0f7f3;
 }
 
 .section-subtitle {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(21, 52, 42, 0.65);
   text-align: center;
   margin-bottom: 4rem;
   max-width: 700px;
@@ -208,8 +208,8 @@
 }
 
 .dosha-card {
-  background: rgba(20, 20, 20, 0.8);
-  border: 2px solid rgba(255, 107, 53, 0.2);
+  background: #f9fffb;
+  border: 2px solid rgba(12, 94, 63, 0.16);
   border-radius: 20px;
   padding: 2.5rem;
   position: relative;
@@ -244,8 +244,8 @@
 
 .dosha-card:hover {
   transform: translateY(-10px);
-  border-color: rgba(255, 107, 53, 0.6);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border-color: rgba(12, 94, 63, 0.4);
+  box-shadow: 0 20px 60px rgba(12, 94, 63, 0.2);
 }
 
 .dosha-card-header {
@@ -275,12 +275,12 @@
   font-size: 2rem;
   font-weight: 800;
   margin: 0 0 0.5rem 0;
-  color: #ffffff;
+  color: #15342a;
 }
 
 .dosha-elements {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(21, 52, 42, 0.65);
   margin: 0;
   font-weight: 500;
 }
@@ -313,7 +313,7 @@
 
 .dosha-characteristics li {
   padding: 0.5rem 0;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(21, 52, 42, 0.85);
   position: relative;
   padding-left: 1.5rem;
   line-height: 1.6;
@@ -323,14 +323,14 @@
   content: '•';
   position: absolute;
   left: 0;
-  color: #ff6b35;
+  color: #0c5e3f;
   font-weight: bold;
   font-size: 1.2rem;
 }
 
 .dosha-balance p,
 .dosha-imbalance p {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(21, 52, 42, 0.8);
   line-height: 1.6;
   margin: 0;
 }
@@ -357,7 +357,7 @@
 }
 
 .pitta-glow {
-  background: radial-gradient(circle, #ff6b35 0%, transparent 70%);
+  background: radial-gradient(circle, #0c5e3f 0%, transparent 70%);
 }
 
 .kapha-glow {
@@ -374,12 +374,12 @@
 }
 
 .pitta-card {
-  border-color: rgba(255, 107, 53, 0.3);
+  border-color: rgba(12, 94, 63, 0.25);
 }
 
 .pitta-card:hover {
-  border-color: rgba(255, 107, 53, 0.6);
-  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.2);
+  border-color: rgba(12, 94, 63, 0.55);
+  box-shadow: 0 20px 60px rgba(12, 94, 63, 0.2);
 }
 
 .kapha-card {
@@ -395,8 +395,8 @@
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background: #ff6b35;
-  color: #ffffff;
+  background: #0c5e3f;
+  color: #f9fffb;
   padding: 0.35rem 1.8rem;
   border-radius: 50px;
   text-decoration: none;
@@ -420,9 +420,9 @@
 }
 
 .sticky-chat-button:hover {
-  background: #ff8555;
+  background: #16a34a;
   transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(255, 107, 53, 0.5);
+  box-shadow: 0 12px 35px rgba(12, 94, 63, 0.45);
 }
 
 .chat-button-icon {
