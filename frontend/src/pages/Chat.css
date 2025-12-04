@@ -2,7 +2,12 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: transparent;
+  background:  #CBE4DD;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
 }
 
 @keyframes gradientShift {
@@ -20,11 +25,10 @@
 
 .chat-main {
   flex: 1;
-  padding: 2rem 2rem 2.5rem;
+  padding: 2rem;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  min-height: calc(100vh - 180px);
 }
 
 .chat-wrapper {
@@ -36,33 +40,30 @@
 }
 
 .results-section {
-  margin-top: 2rem; /* Normal spacing from top */
-  margin-bottom: 2rem; /* Spacing before chat container */
-  padding-top: 2rem;
-  position: relative;
-  z-index: 1;
-} 
+  margin-top: 2rem;
+}
 
 .therapies-section {
   padding: 2rem;
-  background: #f9fffb;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
   border-radius: 24px;
-  box-shadow: 0 18px 50px rgba(12, 83, 52, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
   margin: 2rem auto;
   max-width: 1000px;
-  border: 1px solid rgba(209, 231, 221, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 [data-theme="dark"] .therapies-section {
-  background: #020617;
-  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .therapies-title {
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
-  background: linear-gradient(135deg, #0c5e3f 0%, #16a34a 55%, #8dd3b2 100%);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -71,26 +72,26 @@
 .section-title {
   font-size: 1.5rem;
   margin: 2rem 0 1rem 0;
-  color: #0c5e3f;
+  color: #f5576c;
 }
 
 [data-theme="dark"] .section-title {
-  color: #26c626;
+  color: #f5576c;
 }
 
 .dietary-section,
 .lifestyle-section {
   margin: 2rem 0;
-  padding: 1.5rem; 
-  background: #ffffff;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 16px;
-  border: 1px solid rgba(209, 231, 221, 0.9);
+  border: 1px solid rgba(245, 87, 108, 0.3);
 }
 
 [data-theme="dark"] .dietary-section,
 [data-theme="dark"] .lifestyle-section {
-  background: #020617;
-  border-color: rgba(148, 163, 184, 0.4);
+  background: rgba(40, 40, 40, 0.5);
+  border-color: rgba(245, 87, 108, 0.5);
 }
 
 .dietary-content {
@@ -127,7 +128,7 @@
   content: '✓';
   position: absolute;
   left: 0;
-  color: #0c5e3f;
+  color: #f5576c;
   font-weight: bold;
 }
 
@@ -155,8 +156,8 @@
   max-width: 400px;
   margin: 2rem auto 0;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #0c5e3f 0%, #16a34a 55%, #8dd3b2 100%);
-  color: #f9fffb;
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+  color: white;
   border: none;
   border-radius: 50px;
   font-size: 1.1rem;
@@ -168,7 +169,7 @@
 
 .download-pdf-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(12, 83, 52, 0.35);
+  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
 }
 
 .download-pdf-button:active {
@@ -178,12 +179,6 @@
 @media (max-width: 768px) {
   .chat-main {
     padding: 1rem;
-  }
-  
-  .results-section {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    padding-top: 1.5rem;
   }
   
   .therapies-section {

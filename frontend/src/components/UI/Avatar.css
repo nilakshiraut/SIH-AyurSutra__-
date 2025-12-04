@@ -9,41 +9,41 @@
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(245, 87, 108, 0.3);
+  border: 2px solid rgba(30, 75, 60, 0.3); /* CHANGED: #1E4B3C with opacity */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
 .avatar:hover {
   transform: scale(1.1);
-  border-color: #f5576c;
+  border-color: #1E4B3C; /* CHANGED: Your brand color */
 }
 
 .avatar-bot {
-  background: linear-gradient(135deg, rgba(240, 147, 251, 0.3) 0%, rgba(245, 87, 108, 0.3) 100%);
+  background: linear-gradient(135deg, rgba(141, 211, 178, 0.3) 0%, rgba(30, 75, 60, 0.3) 100%); /* CHANGED: Green gradient */
   animation: pulse 2s ease-in-out infinite;
 }
 
 .avatar-user {
-  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+  background: linear-gradient(135deg, #1E4B3C 0%, #2A7D5E 100%); /* CHANGED: Green brand gradient */
 }
 
 @keyframes pulse {
   0%, 100% {
-    box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+    box-shadow: 0 2px 8px rgba(30, 75, 60, 0.3); /* CHANGED: Green shadow */
   }
   50% {
-    box-shadow: 0 2px 16px rgba(245, 87, 108, 0.6);
+    box-shadow: 0 2px 16px rgba(30, 75, 60, 0.6); /* CHANGED: Green shadow */
   }
 }
 
 [data-theme="dark"] .avatar {
   background: rgba(40, 40, 40, 0.8);
-  border-color: rgba(245, 87, 108, 0.5);
+  border-color: rgba(141, 211, 178, 0.5); /* CHANGED: Light green for dark theme */
 }
 
 [data-theme="dark"] .avatar-bot {
-  background: linear-gradient(135deg, rgba(240, 147, 251, 0.4) 0%, rgba(245, 87, 108, 0.4) 100%);
+  background: linear-gradient(135deg, rgba(141, 211, 178, 0.4) 0%, rgba(30, 75, 60, 0.4) 100%); /* CHANGED: Green for dark theme */
 }
 
 @media (max-width: 768px) {
@@ -53,4 +53,3 @@
     font-size: 1.2rem;
   }
 }
-

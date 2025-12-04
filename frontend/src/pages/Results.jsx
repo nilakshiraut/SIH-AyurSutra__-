@@ -1,7 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from '../components/Layout/Header'
-import Footer from '../components/Layout/Footer'
 import DoshaResult from '../components/Assessment/DoshaResult'
 import TherapyCard from '../components/Assessment/TherapyCard'
 import useChatStore from '../store/chatStore'
@@ -14,7 +12,6 @@ const Results = () => {
   if (!doshaResults) {
     return (
       <div className="results-page">
-        <Header />
         <main className="results-main">
           <div className="no-results">
             <h2>No assessment results found</h2>
@@ -24,14 +21,13 @@ const Results = () => {
             </button>
           </div>
         </main>
-        <Footer />
       </div>
     )
   }
 
   return (
     <div className="results-page">
-      <Header />
+    
       <main className="results-main">
         <DoshaResult doshaResults={doshaResults} />
         {panchakarmaRecs && (
@@ -43,10 +39,10 @@ const Results = () => {
           </div>
         )}
       </main>
-      <Footer />
     </div>
   )
 }
 
 export default Results
+
 

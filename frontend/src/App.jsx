@@ -1,24 +1,26 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Chat from './pages/Chat'
 import Results from './pages/Results'
-import About from './pages/About'
-import Services from './pages/Services'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* Redirect root to chat */}
+        <Route path="/" element={<Navigate to="/chat" replace />} />
+        
+        {/* Chat page */}
         <Route path="/chat" element={<Chat />} />
+        
+        {/* Results page */}
         <Route path="/results" element={<Results />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
+        
+        {/* Catch-all redirect to chat */}
+        <Route path="*" element={<Navigate to="/chat" replace />} />
       </Routes>
     </Router>
   )
 }
 
 export default App
-

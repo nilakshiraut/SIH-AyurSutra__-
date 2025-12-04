@@ -1,24 +1,29 @@
 .dosha-result {
-  padding: 2rem;
-  background: rgba(20, 20, 20, 0.9);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  background: #FFFFFF; /* Clean white background */
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(30, 75, 60, 0.08); /* Professional green-tinted shadow */
   margin: 2rem auto;
   max-width: 1000px;
-  border: 1px solid rgba(255, 107, 53, 0.2);;
+  border: 1px solid #E2E8F0; /* Subtle border */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+/* Dark theme (if needed) */
 [data-theme="dark"] .dosha-result {
-  background: rgba(30, 30, 30, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1A202C; /* Dark charcoal */
+  border: 1px solid #2D3748;
 }
 
 .result-title {
   text-align: center;
   font-size: 2rem;
-  margin-bottom: 2rem;  
-  background: linear-gradient(135deg, #f093fb 0%, #da5322 100%);
+  margin-bottom: 2.5rem;
+  color: #1E4B3C; /* Your brand color */
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  /* Optional gradient for title */
+  background: linear-gradient(135deg, #1E4B3C 0%, #2A7D5E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -28,32 +33,34 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .dosha-item {
   text-align: center;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  background: #FFFFFF;
+  padding: 1.75rem;
+  background: #F7FAFC; /* Very light gray */
   border-radius: 16px;
   transition: all 0.3s ease;
+  border: 1px solid #E2E8F0;
 }
 
 .dosha-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(30, 75, 60, 0.1);
+  border-color: #2A7D5E; /* Highlight on hover */
 }
 
 [data-theme="dark"] .dosha-item {
-  background: rgba(40, 40, 40, 0.5);
+  background: #2D3748; /* Dark gray */
+  border-color: #4A5568;
 }
 
 .dosha-circle-container {
   position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 1rem;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 1.5rem;
 }
 
 .dosha-circle {
@@ -62,8 +69,22 @@
   transform: rotate(-90deg);
 }
 
+/* Professional circular progress colors for each dosha */
+.dosha-progress-vata {
+  stroke: #4C51BF; /* Indigo for Vata */
+}
+
+.dosha-progress-pitta {
+  stroke: #D69E2E; /* Amber for Pitta */
+}
+
+.dosha-progress-kapha {
+  stroke: #38A169; /* Green for Kapha */
+}
+
 .dosha-progress {
   transition: stroke-dashoffset 1s ease;
+  stroke-linecap: round;
 }
 
 .dosha-percentage {
@@ -71,77 +92,158 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: #1A202C; /* Dark text */
 }
 
 [data-theme="dark"] .dosha-percentage {
-  color: #f0f0f0;
+  color: #FFFFFF;
 }
 
 .dosha-name {
   font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
-  color: #2c3e50;
+  font-weight: 600;
+  margin: 0.75rem 0;
+  color: #1A202C;
   transition: all 0.3s ease;
 }
 
+/* Color-coded dosha names */
+.dosha-name.vata {
+  color: #4C51BF; /* Indigo */
+}
+
+.dosha-name.pitta {
+  color: #D69E2E; /* Amber */
+}
+
+.dosha-name.kapha {
+  color: #38A169; /* Green */
+}
+
 .dosha-name.dominant {
-  color: #f5576c;
-  transform: scale(1.1);
+  transform: scale(1.05);
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.dosha-name.dominant::after {
+  content: "★";
+  color: #D69E2E; /* Star for dominant */
+  margin-left: 0.5rem;
+  font-size: 1rem;
 }
 
 [data-theme="dark"] .dosha-name {
-  color: #f0f0f0;
-}
-
-[data-theme="dark"] .dosha-name.dominant {
-  color: #f5576c;
+  color: #E2E8F0;
 }
 
 .dosha-description {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.95rem;
+  color: #4A5568; /* Medium gray */
   margin: 0;
+  line-height: 1.5;
 }
 
 [data-theme="dark"] .dosha-description {
-  color: #aaa;
+  color: #A0AEC0;
 }
 
+/* Professional Summary Box */
 .dosha-summary {
   text-align: center;
-  padding: 1.5rem;
-  background: rgba(255, 107, 53, 0.15);
-  border-radius: 12px;
-  border: 1px solid rgba(245, 87, 108, 0.3);
+  padding: 2rem;
+  background: linear-gradient(135deg, #E8F5F0 0%, #F0FFF4 100%); /* Soft green gradient */
+  border-radius: 16px;
+  border: 1px solid #C6F6D5;
+  margin-top: 2rem;
 }
 
 [data-theme="dark"] .dosha-summary {
-  background: rgba(245, 87, 108, 0.2);
-  border-color: rgba(245, 87, 108, 0.5);
+  background: linear-gradient(135deg, rgba(30, 75, 60, 0.3) 0%, rgba(56, 161, 105, 0.2) 100%);
+  border-color: rgba(56, 161, 105, 0.3);
+}
+
+.summary-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1E4B3C;
+  margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .summary-title {
+  color: #FFFFFF;
 }
 
 .summary-text {
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
   font-size: 1.1rem;
-  color: #ffffff;
+  color: #2D3748;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 [data-theme="dark"] .summary-text {
-  color: #f0f0f0;
+  color: #E2E8F0;
 }
 
+/* Action Buttons */
+.results-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-family: inherit;
+}
+
+.action-button.primary {
+  background: linear-gradient(135deg, #1E4B3C 0%, #2A7D5E 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(30, 75, 60, 0.2);
+}
+
+.action-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(30, 75, 60, 0.3);
+}
+
+.action-button.secondary {
+  background: white;
+  color: #1E4B3C;
+  border: 2px solid #E2E8F0;
+}
+
+.action-button.secondary:hover {
+  border-color: #2A7D5E;
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .dosha-result {
     padding: 1.5rem;
     margin: 1rem;
+    border-radius: 16px;
   }
   
   .result-title {
     font-size: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   
   .dosha-chart {
@@ -150,12 +252,28 @@
   }
   
   .dosha-circle-container {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
   
   .dosha-percentage {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+  }
+  
+  .dosha-name {
+    font-size: 1.25rem;
+  }
+  
+  .dosha-summary {
+    padding: 1.5rem;
+  }
+  
+  .results-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .action-button {
+    width: 100%;
   }
 }
-

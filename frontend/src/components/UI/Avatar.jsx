@@ -11,3 +11,4 @@ const Avatar = ({ type = 'bot' }) => {
 
 export default Avatar
 
+

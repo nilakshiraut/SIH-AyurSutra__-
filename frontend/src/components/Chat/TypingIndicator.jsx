@@ -17,3 +17,4 @@ const TypingIndicator = () => {
 
 export default TypingIndicator
 
+

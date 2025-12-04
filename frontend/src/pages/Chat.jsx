@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from '../components/Layout/Header'
-import Footer from '../components/Layout/Footer'
 import ChatContainer from '../components/Chat/ChatContainer'
 import DoshaResult from '../components/Assessment/DoshaResult'
 import TherapyCard from '../components/Assessment/TherapyCard'
@@ -52,9 +50,10 @@ const Chat = () => {
 
   return (
     <div className="chat-page">
-      <Header />
+    
       <main className="chat-main">
         <div className="chat-wrapper">
+          <ChatContainer />
           {assessmentComplete && (
             <div className="results-section">
               <DoshaResult doshaResults={doshaResults} />
@@ -102,13 +101,13 @@ const Chat = () => {
               </div>
             </div>
           )}
-          <ChatContainer />
         </div>
       </main>
-      <Footer />
+    
     </div>
   )
 }
 
 export default Chat
+
 

@@ -3,39 +3,46 @@
   gap: 0.75rem;
   align-items: flex-end;
   animation: slideIn 0.3s ease;
+  max-width: 80%;
+  align-self: flex-start; /* Align to left like bot messages */
 }
 
 .typing-bubble {
-  background: rgba(240, 147, 251, 0.2);
+  background: #FFFFFF; /* Clean white background */
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(245, 87, 108, 0.3);
+  border: 1px solid #E2E8F0; /* Professional light border */
   border-radius: 20px;
-  border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 6px; /* Match bot message style */
   padding: 1rem 1.25rem;
   display: flex;
   gap: 0.4rem;
   align-items: center;
+  box-shadow: 0 2px 8px rgba(30, 75, 60, 0.05); /* Subtle green-tinted shadow */
 }
 
+/* Dark theme (optional - keep if you need it) */
 [data-theme="dark"] .typing-bubble {
-  background: rgba(240, 147, 251, 0.3);
-  border-color: rgba(245, 87, 108, 0.5);
+  background: rgba(30, 75, 60, 0.1); /* Semi-transparent brand color */
+  border-color: rgba(42, 125, 94, 0.3); /* Semi-transparent primary */
 }
 
+/* Professional Healthcare Dots */
 .typing-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #f5576c;
-  animation: typing 1.4s infinite;
+  background: #2A7D5E; /* Your primary-main color (#1E4B3C → #2A7D5E) */
+  animation: typing 1.4s infinite ease-in-out;
 }
 
 .typing-dot:nth-child(2) {
   animation-delay: 0.2s;
+  background: #4CAF8C; /* Primary-light */
 }
 
 .typing-dot:nth-child(3) {
   animation-delay: 0.4s;
+  background: #1E4B3C; /* Primary-dark */
 }
 
 @keyframes typing {
@@ -44,8 +51,51 @@
     opacity: 0.7;
   }
   30% {
-    transform: translateY(-10px);
+    transform: translateY(-8px); /* Slightly less bounce for professional look */
     opacity: 1;
   }
 }
 
+/* Optional: Add "Thinking..." text */
+.typing-text {
+  font-size: 0.9rem;
+  color: #4A5568; /* Neutral-medium */
+  margin-right: 0.75rem;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .typing-indicator {
+    max-width: 90%;
+  }
+  
+  .typing-bubble {
+    padding: 0.875rem 1rem;
+  }
+  
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .typing-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Alternative: Minimal dots-only version */
+.typing-indicator.minimal .typing-bubble {
+  padding: 0.875rem 1.25rem;
+}
+
+.typing-indicator.minimal .typing-text {
+  display: none;
+}
+
+/* If you want to match the message bubble exactly */
+.typing-bubble.matching {
+  background: #E8F5F0; /* Primary-soft color */
+  border-color: #D1E7DD;
+}

@@ -80,3 +80,4 @@ const DoshaResult = ({ doshaResults }) => {
 
 export default DoshaResult
 
+

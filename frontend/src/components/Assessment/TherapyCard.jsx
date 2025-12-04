@@ -31,3 +31,4 @@ const TherapyCard = ({ therapy }) => {
 
 export default TherapyCard
 
+
