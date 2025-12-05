@@ -58,6 +58,10 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
+@app.get("/keepalive")
+def keep_alive():
+    return {"status": "awake"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
