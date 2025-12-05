@@ -7,11 +7,11 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'https://sih-ayursutra.onrender.com',
+       
         changeOrigin: true
       },
       '/ws': {
-        target: 'wss://sih-ayursutra.onrender.com',
+      
         ws: true
       }
     }
