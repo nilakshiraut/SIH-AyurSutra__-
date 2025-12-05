@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import WebSocketService from '../services/websocket'
 import { useNavigate } from 'react-router-dom'
 import WebSocketService from '../services/websocket' 
 import ChatContainer from '../components/Chat/ChatContainer'
