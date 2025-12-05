@@ -25,7 +25,7 @@
 }
 
 .avatar-user {
-  background: linear-gradient(135deg, #1E4B3C 0%, #2A7D5E 100%); /* CHANGED: Green brand gradient */
+  background: linear-gradient(135deg, rgba(141, 211, 178, 0.3) 0%, rgba(30, 75, 60, 0.3) 100%);  /* CHANGED: Green brand gradient */
 }
 
 @keyframes pulse {

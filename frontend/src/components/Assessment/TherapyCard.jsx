@@ -8,7 +8,7 @@ import nasyaImage from '../../Images/Nasya.png'
 import raktamokshanaImage from '../../Images/Raktamokshana.png'
 import vamanaImage from '../../Images/vamana.png'
 import virechanaImage from '../../Images/Virechana.png'
-import abhyangaImage from '../../Images/Abhyanga.png' // Added Abhyanga image
+// Removed Abhyanga import as requested
 
 // Map therapy names to their images
 const therapyImages = {
@@ -18,7 +18,7 @@ const therapyImages = {
   'Raktamokshana': raktamokshanaImage,
   'Vamana': vamanaImage,
   'Virechana': virechanaImage,
-  'Abhyanga': abhyangaImage, // Added Abhyanga
+  // Removed Abhyanga from the mapping
 }
 
 // Function to get the correct image for a therapy
@@ -98,7 +98,7 @@ const TherapyCard = ({ therapy }) => {
         <div className="therapy-details">
           <div className="detail-item">
             <span className="detail-label">
-              <span className="detail-icon">⏱️</span>
+             
               Duration
             </span>
             <span className="detail-value">{therapy.duration}</span>
@@ -106,7 +106,7 @@ const TherapyCard = ({ therapy }) => {
           
           <div className="detail-item">
             <span className="detail-label">
-              <span className="detail-icon">✨</span>
+             
               Benefits
             </span>
             <span className="detail-value">{therapy.benefits}</span>
@@ -115,7 +115,6 @@ const TherapyCard = ({ therapy }) => {
           {therapy.dosha && (
             <div className="detail-item">
               <span className="detail-label">
-                <span className="detail-icon">🎯</span>
                 Balances
               </span>
               <span className="detail-value">
@@ -129,7 +128,7 @@ const TherapyCard = ({ therapy }) => {
           {therapy.precautions && (
             <div className="detail-item">
               <span className="detail-label">
-                <span className="detail-icon">⚠️</span>
+             
                 Precautions
               </span>
               <span className="detail-value precautions-text">{therapy.precautions}</span>
