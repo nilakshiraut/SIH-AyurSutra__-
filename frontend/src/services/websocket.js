@@ -18,10 +18,15 @@ class WebSocketService {
 
   connect(sessionId = null) {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      console.log('WebSocket service: Already connected, reusing connection');
       return Promise.resolve()
     }
 
-    this.sessionId = sessionId || this.generateSessionId()
+    // Reuse existing session ID if we have one, otherwise generate new
+    if (!this.sessionId) {
+      this.sessionId = sessionId || this.generateSessionId()
+    }
+    console.log('WebSocket service: Using session ID:', this.sessionId)
     // In development, use Vite proxy. In production, use direct URL
     const isDev = import.meta.env.DEV
     let baseUrl

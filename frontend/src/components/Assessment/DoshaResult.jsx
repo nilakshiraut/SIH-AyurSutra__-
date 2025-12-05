@@ -58,7 +58,6 @@ const DoshaResult = ({ doshaResults }) => {
             </div>
             <h3 className={`dosha-name ${dosha === dominant_dosha ? 'dominant' : ''}`}>
               {doshaNames[dosha]}
-              {dosha === dominant_dosha && ' ⭐'}
             </h3>
             <p className="dosha-description">{doshaDescriptions[dosha]}</p>
           </div>

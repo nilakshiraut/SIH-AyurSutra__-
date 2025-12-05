@@ -131,9 +131,9 @@
 
 .dosha-name.dominant::after {
   content: "★";
-  color: #D69E2E; /* Star for dominant */
+  color: #25674f;
   margin-left: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 [data-theme="dark"] .dosha-name {

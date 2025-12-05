@@ -17,9 +17,33 @@ const Chat = () => {
     }
   }, [])
 
+  // Auto-scroll to results when assessment is complete
+  useEffect(() => {
+    if (assessmentComplete) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        const resultsSection = document.querySelector('.results-section')
+        if (resultsSection) {
+          resultsSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          })
+        }
+      }, 500)
+    }
+  }, [assessmentComplete])
+
   const handleDownloadPDF = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pdf/generate`, {
+      console.log('Download PDF clicked')
+      console.log('Dosha results:', doshaResults)
+      console.log('Panchakarma recs:', panchakarmaRecs)
+
+      const apiUrl = import.meta.env.VITE_API_URL || '';
+      const requestUrl = `${apiUrl}/api/pdf/generate`
+      console.log('Making request to:', requestUrl)
+
+      const response = await fetch(requestUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -31,16 +55,43 @@ const Chat = () => {
         })
       })
 
+      console.log('Response status:', response.status)
+      console.log('Response headers:', response.headers)
+
       if (response.ok) {
-        const blob = await response.blob()
-        const url = window.URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = 'ayursutra_assessment_report.pdf'
-        document.body.appendChild(a)
-        a.click()
-        window.URL.revokeObjectURL(url)
-        document.body.removeChild(a)
+        try {
+          const blob = await response.blob()
+          console.log('Blob size:', blob.size)
+          if (blob.size > 100) { // Check if we actually got a PDF
+            const url = window.URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = 'ayursutra_assessment_report.pdf'
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(url)
+            document.body.removeChild(a)
+            console.log('PDF download initiated')
+          } else {
+            // If blob is too small, might be an error response
+            const text = await blob.text()
+            console.error('Received small blob, might be error:', text)
+            alert('PDF generation is currently unavailable. Please try again later or contact support.')
+          }
+        } catch (blobError) {
+          console.error('Error processing blob:', blobError)
+          alert('Error processing PDF download. Please try again.')
+        }
+      } else {
+        const errorText = await response.text()
+        console.error('PDF generation failed:', response.status, errorText)
+
+        // Provide helpful error message
+        if (response.status === 500 && errorText.includes('PDF')) {
+          alert('PDF generation service is temporarily unavailable. The assessment data is saved. Please try again later.')
+        } else {
+          alert(`Failed to download PDF: ${errorText}`)
+        }
       }
     } catch (error) {
       console.error('Error downloading PDF:', error)

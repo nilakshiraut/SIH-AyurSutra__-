@@ -62,7 +62,7 @@
   /* Optional gradient for depth */
   background: linear-gradient(135deg, #1E4B3C 0%, #2A7D5E 100%);
   /* Increased max-width for user messages */
-  max-width: 85%; /* Changed from implicit 70-75% to 85% */
+  max-width: 100%; /* Changed from 85% to 100% */
 }
 
 .message-text {

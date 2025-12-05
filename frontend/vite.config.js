@@ -15,6 +15,10 @@ export default defineConfig({
         ws: true
       }
     }
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false
   }
 })
 

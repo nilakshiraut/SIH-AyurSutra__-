@@ -15,6 +15,92 @@
   transition: all 0.45s ease; /* smooth animations */
 }
 
+/* Chat Header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--primary-soft);
+  border-bottom: 1px solid var(--border-color);
+  min-height: 56px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bot-icon {
+  font-size: 1.5rem;
+  color: var(--primary-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--neutral-white);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(30, 75, 60, 0.1);
+}
+
+.bot-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  letter-spacing: -0.01em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.header-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--primary-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.header-button:hover {
+  background: var(--neutral-white);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.header-button:active {
+  transform: scale(0.95);
+}
+
+.close-button {
+  color: var(--neutral-medium);
+}
+
+.close-button:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.refresh-button:hover {
+  color: var(--primary-main);
+}
+
+.fullscreen-button:hover {
+  color: var(--primary-main);
+}
+
 /* --------------------------------------------- */
 /* MOVE CHAT UP WHEN ASSESSMENT IS COMPLETE      */
 /* --------------------------------------------- */
@@ -32,7 +118,7 @@
 
 /* reduce message height when chat is lifted */
 .chat-container.assessment-complete .chat-messages {
-  height: calc(600px - 200px);
+  height: calc(600px - 200px - 56px);
   overflow-y: auto;
 }
 
@@ -82,7 +168,7 @@
 
 /* Message Bubbles */
 .message-bubble {
-  max-width: 85%;
+  max-width: 100%;
   padding: 0.875rem 1.125rem;
   border-radius: 18px;
   word-wrap: break-word;
@@ -238,14 +324,34 @@
     bottom: 25%; /* slightly lower move for mobile */
   }
 
+  .chat-header {
+    padding: 0.75rem 1rem;
+    min-height: 48px;
+  }
+
+  .bot-name {
+    font-size: 1rem;
+  }
+
+  .bot-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 1.25rem;
+  }
+
+  .header-button {
+    width: 32px;
+    height: 32px;
+  }
+
   .chat-welcome {
     padding: 2rem 1rem;
   }
-  
+
   .welcome-avatar {
     font-size: 2.5rem;
   }
-  
+
   .chat-welcome h2 {
     font-size: 1.5rem;
   }
