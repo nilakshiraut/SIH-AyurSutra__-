@@ -9,13 +9,32 @@ const useChatStore = create((set, get) => ({
   panchakarmaRecs: null,
   assessmentComplete: false,
 
-  addMessage: (message) => set((state) => ({
+// In your store/chatStore.js
+addMessage: (message) => set((state) => {
+  // Create a unique identifier for this message
+  const messageId = message.messageId || `${message.sender}-${message.text}-${message.timestamp}`;
+  
+  // Check if this message already exists
+  const isDuplicate = state.messages.some(msg => 
+    (msg.messageId && msg.messageId === messageId) || 
+    (msg.sender === message.sender && 
+     msg.text === message.text && 
+     msg.timestamp === message.timestamp)
+  );
+  
+  if (isDuplicate) {
+    console.log('Store: Duplicate message prevented:', message.text?.substring(0, 50));
+    return state; // Don't update state if duplicate
+  }
+  
+  return {
     messages: [...state.messages, {
       ...message,
-      id: Date.now() + Math.random()
+      id: Date.now() + Math.random(),
+      messageId: messageId // Ensure messageId is stored
     }]
-  })),
-
+  };
+}),
   setConnected: (status) => set({ isConnected: status }),
 
   setTyping: (status) => set({ isTyping: status }),

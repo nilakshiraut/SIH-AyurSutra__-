@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useCallback, useState } from 'react'
 import MessageBubble from './MessageBubble'
 import InputBox from './InputBox'
 import TypingIndicator from './TypingIndicator'
@@ -9,6 +9,11 @@ import './ChatContainer.css'
 const ChatContainer = () => {
   const messagesEndRef = useRef(null)
   const containerRef = useRef(null)
+  const chatMessagesRef = useRef(null)
+  const connectionAttemptedRef = useRef(false)
+  const lastMessageHashRef = useRef('')
+  const [isAssessmentComplete, setIsAssessmentComplete] = useState(false)
+
   const {
     messages,
     isConnected,
@@ -23,138 +28,116 @@ const ChatContainer = () => {
     setAssessmentComplete
   } = useChatStore()
 
-  // ✅ KEEP ONLY THIS SCROLL FUNCTION
+  // AUTO-SCROLL
   useEffect(() => {
-    // Auto-scroll to bottom when component mounts or messages change
     const messagesContainer = containerRef.current?.querySelector('.chat-messages');
-    if (messagesContainer) {
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+    if (messagesContainer) messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }, [messages, isTyping]);
 
+  // LISTEN FOR ASSESSMENT COMPLETION
   useEffect(() => {
-    // Connect to WebSocket
-    websocketService.connect()
-
-    // Set up message listener
-    const handleMessage = (data) => {
-      if (data.type === 'typing') {
-        setTyping(true)
-        setTimeout(() => setTyping(false), 2000)
-        return
+    const unsubscribe = useChatStore.subscribe(
+      (state) => state.assessmentComplete,
+      (isComplete) => {
+        setIsAssessmentComplete(isComplete);
       }
+    );
+    return () => unsubscribe();
+  }, []);
 
-      if (data.type === 'message') {
-        // Only add bot messages (user messages are added optimistically)
-        if (data.sender === 'bot') {
-          addMessage({
-            text: data.text,
-            sender: data.sender,
-            timestamp: data.timestamp
-          })
-        }
-        setTyping(false)
-      }
+  // HANDLE INCOMING WS MESSAGE
+  const handleMessage = useCallback((data) => {
+    const messageHash = `${data.type}-${data.sender}-${data.text || ''}`;
+    if (messageHash === lastMessageHashRef.current) return;
+    lastMessageHashRef.current = messageHash;
 
-      if (data.type === 'question') {
-        addMessage({
-          text: data.text,
-          sender: 'bot',
-          timestamp: data.timestamp,
-          questionId: data.question_id,
-          options: data.options,
-          isQuestion: true
-        })
-        setAssessmentProgress(data.progress)
-        setTyping(false)
-      }
-
-      if (data.type === 'assessment_complete') {
-        setDoshaResults(data.dosha_results)
-        setPanchakarmaRecs(data.panchakarma_recs)
-        setAssessmentComplete(true)
-        addMessage({
-          text: 'Assessment complete! Check your results below.',
-          sender: 'bot',
-          timestamp: data.timestamp,
-          isComplete: true
-        })
-        setTyping(false)
-      }
+    if (data.type === 'typing') {
+      setTyping(true);
+      setTimeout(() => setTyping(false), 1500);
+      return;
     }
 
-    const handleConnected = () => {
-      console.log('WebSocket connected successfully!')
-      setConnected(true)
+    if (data.type === 'message') {
+      addMessage({
+        text: data.text,
+        sender: data.sender,
+        timestamp: data.timestamp
+      });
+      setTyping(false);
     }
 
-    const handleDisconnected = () => {
-      setConnected(false)
-      console.log('WebSocket disconnected')
+    if (data.type === 'question') {
+      addMessage({
+        text: data.text,
+        sender: 'bot',
+        timestamp: data.timestamp,
+        questionId: data.question_id,
+        options: data.options,
+        isQuestion: true
+      });
+      setAssessmentProgress(data.progress);
+      setTyping(false);
+      setIsAssessmentComplete(false);  // move chat back down if new questions start
     }
 
-    const handleError = (error) => {
-      console.error('WebSocket connection error:', error)
-      setConnected(false)
+    if (data.type === 'assessment_complete') {
+      setDoshaResults(data.dosha_results);
+      setPanchakarmaRecs(data.panchakarma_recs);
+      setAssessmentComplete(true);
+      addMessage({
+        text: 'Assessment complete! Check your results below.',
+        sender: 'bot',
+        timestamp: data.timestamp,
+        isComplete: true
+      });
     }
+  }, []);
 
-    const handleReconnectFailed = () => {
-      console.error('WebSocket reconnection failed')
-      setConnected(false)
-    }
+  // INITIALIZE WEBSOCKET
+  useEffect(() => {
+    if (connectionAttemptedRef.current) return;
+    connectionAttemptedRef.current = true;
 
-    websocketService.on('message', handleMessage)
-    websocketService.on('connected', handleConnected)
-    websocketService.on('disconnected', handleDisconnected)
-    websocketService.on('error', handleError)
-    websocketService.on('reconnect_failed', handleReconnectFailed)
+    websocketService.connect();
+
+    websocketService.on('connected', () => {
+      setConnected(true);
+      lastMessageHashRef.current = '';
+    });
+
+    websocketService.on('disconnected', () => setConnected(false));
+    websocketService.on('error', () => setConnected(false));
+    websocketService.on('message', handleMessage);
 
     return () => {
-      websocketService.off('message', handleMessage)
-      websocketService.off('connected', handleConnected)
-      websocketService.off('disconnected', handleDisconnected)
-      websocketService.off('error', handleError)
-      websocketService.off('reconnect_failed', handleReconnectFailed)
-    }
-  }, [])
+      websocketService.off('message', handleMessage);
+      connectionAttemptedRef.current = false;
+    };
+  }, []);
 
-  const handleSendMessage = (message) => {
-    // Add user message immediately to UI (optimistic update)
+  // SEND MESSAGE
+  const handleSendMessage = useCallback((message) => {
     addMessage({
       text: message,
       sender: 'user',
       timestamp: new Date().toISOString()
-    })
-    
-    // Send to backend
-    if (!isConnected) {
-      console.log('Not connected, attempting to connect...')
-      websocketService.connect().then(() => {
-        websocketService.send(message)
-      }).catch((error) => {
-        console.error('Failed to connect:', error)
-      })
-    } else {
-      websocketService.send(message)
-    }
-  }
+    });
+    websocketService.send(message);
+  }, []);
 
   return (
-    <div className="chat-container" ref={containerRef}>
-      <div className="chat-messages">
-        {messages.length === 0 && (
-          <div className="chat-welcome">
-            <div className="welcome-avatar">🌿</div>
-            <h2>Welcome to AyurSutra</h2>
-            <p>Your Ayurvedic wellness journey begins here</p>
-          </div>
-        )}
-        {messages.map((message) => (
-          <MessageBubble key={message.id} message={message} onOptionSelect={handleSendMessage} />
+    <div
+      className={`chat-container ${isAssessmentComplete ? 'assessment-complete' : ''}`}
+      ref={containerRef}
+    >
+      <div className="chat-messages" ref={chatMessagesRef}>
+        {messages.map((message, index) => (
+          <MessageBubble key={index} message={message} onOptionSelect={handleSendMessage} />
         ))}
         {isTyping && <TypingIndicator />}
         <div ref={messagesEndRef} />
       </div>
+
       {assessmentProgress && (
         <div className="progress-bar">
           <div
@@ -166,12 +149,14 @@ const ChatContainer = () => {
           </span>
         </div>
       )}
+
       {!isConnected && (
         <div className="connection-status">
           <span className="status-indicator">●</span>
           <span>Connecting to AyurSutra Bot...</span>
         </div>
       )}
+
       <InputBox onSend={handleSendMessage} disabled={!isConnected} />
     </div>
   )

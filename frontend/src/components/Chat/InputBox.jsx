@@ -45,7 +45,7 @@ const InputBox = ({ onSend, disabled }) => {
           disabled={!message.trim() || disabled}
           aria-label="Send message"
         >
-          <span className="send-icon">✈️</span>
+          <span className="send-icon">🌿</span>
         </button>
       </div>
     </form>

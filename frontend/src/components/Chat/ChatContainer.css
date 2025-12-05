@@ -12,6 +12,28 @@
   overflow: hidden;
   border: 1px solid var(--border-color);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: all 0.45s ease; /* smooth animations */
+}
+
+/* --------------------------------------------- */
+/* MOVE CHAT UP WHEN ASSESSMENT IS COMPLETE      */
+/* --------------------------------------------- */
+.chat-container.assessment-complete {
+  position: fixed;
+  bottom: 32%; /* 🔼 move upward */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.12);
+  z-index: 999;
+}
+
+/* reduce message height when chat is lifted */
+.chat-container.assessment-complete .chat-messages {
+  height: calc(600px - 200px);
+  overflow-y: auto;
 }
 
 /* Welcome Message - Professional */
@@ -58,7 +80,7 @@
   background: var(--neutral-light);
 }
 
-/* Professional Message Bubbles */
+/* Message Bubbles */
 .message-bubble {
   max-width: 85%;
   padding: 0.875rem 1.125rem;
@@ -85,7 +107,7 @@
   box-shadow: 0 2px 12px rgba(30, 75, 60, 0.05);
 }
 
-/* Input Box - Professional */
+/* Input Box */
 .input-box {
   padding: 1rem 1.5rem;
   background: white;
@@ -149,7 +171,7 @@
   cursor: not-allowed;
 }
 
-/* Progress Bar - Professional */
+/* Progress Bar */
 .progress-bar {
   background: var(--primary-soft);
   height: 32px;
@@ -211,7 +233,11 @@
     border-radius: 0;
     max-width: 100%;
   }
-  
+
+  .chat-container.assessment-complete {
+    bottom: 25%; /* slightly lower move for mobile */
+  }
+
   .chat-welcome {
     padding: 2rem 1rem;
   }

@@ -161,7 +161,8 @@ class ConnectionManager:
                 'current_question': 0,
                 'assessment_complete': False,
                 'dosha_results': None,
-                'panchakarma_recs': None
+                'panchakarma_recs': None,
+                'has_sent_welcome': False  # Track if welcome message was sent
             }
     
     def disconnect(self, session_id: str):
@@ -185,6 +186,50 @@ async def simulate_typing_delay():
     """Simulate bot thinking time"""
     await asyncio.sleep(0.5)
 
+async def get_bot_response(user_message: str, session: dict, session_id: str) -> str:
+    """Get appropriate bot response based on user message and session state"""
+    # If assessment is complete, handle general conversation
+    if session['assessment_complete']:
+        if chatbot_model and intents_data:
+            try:
+                intent_tag = chatbot_model.predict([clean_text(user_message)])[0]
+                intent = next((i for i in intents_data['intents'] if i['tag'] == intent_tag), None)
+                if intent:
+                    import random
+                    return random.choice(intent['responses'])
+            except:
+                pass
+        return "You've completed your assessment! Would you like to see your results again?"
+    
+    # If assessment is in progress, continue with it
+    if session['current_question'] < len(ASSESSMENT_QUESTIONS):
+        current_q = ASSESSMENT_QUESTIONS[session['current_question']]
+        if user_message in current_q['options']:
+            # Valid option selected, handled in main loop
+            return None
+        else:
+            # Invalid option, re-ask question
+            return f"{current_q['question']} Please select one of the options below:"
+    
+    # If no assessment in progress, check if user wants to start
+    start_keywords = ['start', 'begin', 'yes', 'ready', 'assessment']
+    if any(keyword in user_message.lower() for keyword in start_keywords):
+        return None  # Will start assessment in main loop
+    
+    # General conversation before assessment starts
+    if chatbot_model and intents_data:
+        try:
+            intent_tag = chatbot_model.predict([clean_text(user_message)])[0]
+            intent = next((i for i in intents_data['intents'] if i['tag'] == intent_tag), None)
+            if intent:
+                import random
+                return random.choice(intent['responses'])
+        except:
+            pass
+    
+    # Default response
+    return "I'm here to help you with your Ayurvedic assessment. Type 'start' to begin!"
+
 @router.websocket("/ws/chat")
 async def websocket_endpoint(websocket: WebSocket):
     session_id = None
@@ -195,45 +240,38 @@ async def websocket_endpoint(websocket: WebSocket):
         await manager.connect(websocket, session_id)
         session = manager.user_sessions[session_id]
         
-        # Send welcome message
-        await manager.send_personal_message({
-            'type': 'message',
-            'sender': 'bot',
-            'text': "Namaste! 🌿 I'm AyurSutra Bot, your Ayurvedic wellness assistant. I'll help you discover your Dosha (Prakriti) and recommend personalized Panchakarma therapies. Are you ready to begin your assessment?",
-            'timestamp': datetime.now().isoformat()
-        }, session_id)
+        # Send welcome message ONLY ONCE
+        if not session['has_sent_welcome']:
+            await manager.send_personal_message({
+                'type': 'message',
+                'sender': 'bot',
+                'text': "Namaste! 🌿 I'm AyurSutra Bot, your Ayurvedic wellness assistant. I'll help you discover your Dosha (Prakriti) and recommend personalized Panchakarma therapies. Are you ready to begin your assessment?",
+                'timestamp': datetime.now().isoformat()
+            }, session_id)
+            session['has_sent_welcome'] = True
         
         while True:
-            try:
-                data = await websocket.receive_json()
-                print(f"Received data from client: {data}")
-                user_message = data.get('message', '').strip()
-                
-                if not user_message:
-                    print("Empty message received, skipping")
-                    continue
-                
-                print(f"Processing user message: {user_message}")
-                
-                # Note: User message is shown optimistically in frontend, 
-                # so we don't need to echo it back
+            # Wait for user message
+            data = await websocket.receive_json()
+            print(f"Received data from client: {data}")
+            user_message = data.get('message', '').strip()
             
-                await simulate_typing_delay()
-                await manager.send_typing_indicator(session_id)
-                await asyncio.sleep(1)
-            except Exception as e:
-                print("Error processing message:", e)
-                print(f"Traceback: {traceback.format_exc()}")
-                break
-
-        
+            if not user_message:
+                print("Empty message received, skipping")
+                continue
+            
+            print(f"Processing user message: {user_message}")
+            
+            # Simulate typing
+            await simulate_typing_delay()
+            await manager.send_typing_indicator(session_id)
+            await asyncio.sleep(1)
             
             # Check if assessment is in progress
             if session['current_question'] < len(ASSESSMENT_QUESTIONS):
-                # Handle assessment flow
                 current_q = ASSESSMENT_QUESTIONS[session['current_question']]
                 
-                # Check if user selected an option
+                # Check if user selected a valid option
                 if user_message in current_q['options']:
                     # Map answer to dosha value
                     question_id = current_q['id']
@@ -277,7 +315,7 @@ async def websocket_endpoint(websocket: WebSocket):
                             'timestamp': datetime.now().isoformat()
                         }, session_id)
                 else:
-                    # Re-ask current question with options
+                    # Invalid option, re-ask current question
                     await manager.send_personal_message({
                         'type': 'question',
                         'sender': 'bot',
@@ -291,7 +329,8 @@ async def websocket_endpoint(websocket: WebSocket):
                         'timestamp': datetime.now().isoformat()
                     }, session_id)
             
-            elif 'start' in user_message.lower() or 'begin' in user_message.lower() or 'yes' in user_message.lower():
+            # Check if user wants to start assessment
+            elif user_message.lower() in ['start', 'begin', 'yes', 'ready', 'let\'s start', 'let\'s begin']:
                 # Start assessment
                 session['current_question'] = 0
                 session['assessment_data'] = {}
@@ -311,34 +350,15 @@ async def websocket_endpoint(websocket: WebSocket):
             
             else:
                 # Handle general conversation
-                if chatbot_model and intents_data:
-                    # Use ML model for intent classification
-                    try:
-                        intent_tag = chatbot_model.predict([clean_text(user_message)])[0]
-                        # Find matching intent
-                        intent = next((i for i in intents_data['intents'] if i['tag'] == intent_tag), None)
-                        if intent:
-                            import random
-                            response = random.choice(intent['responses'])
-                        else:
-                            response = "I'm here to help you with your Ayurvedic assessment. Would you like to start?"
-                    except:
-                        response = "I'm here to help you with your Ayurvedic assessment. Would you like to start?"
-                else:
-                    # Fallback to keyword matching
-                    intent = match_intent(user_message, intents_data['intents'] if intents_data else [])
-                    if intent:
-                        import random
-                        response = random.choice(intent['responses'])
-                    else:
-                        response = "I'm here to help you with your Ayurvedic assessment. Would you like to start?"
+                bot_response = await get_bot_response(user_message, session, session_id)
                 
-                await manager.send_personal_message({
-                    'type': 'message',
-                    'sender': 'bot',
-                    'text': response,
-                    'timestamp': datetime.now().isoformat()
-                }, session_id)
+                if bot_response:
+                    await manager.send_personal_message({
+                        'type': 'message',
+                        'sender': 'bot',
+                        'text': bot_response,
+                        'timestamp': datetime.now().isoformat()
+                    }, session_id)
     
     except WebSocketDisconnect:
         if session_id:

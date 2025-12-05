@@ -63,7 +63,7 @@
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #1E4B3C 0%,#2A7D5E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -72,11 +72,11 @@
 .section-title {
   font-size: 1.5rem;
   margin: 2rem 0 1rem 0;
-  color: #f5576c;
+  color: #1E4B3C;
 }
 
 [data-theme="dark"] .section-title {
-  color: #f5576c;
+  color: #1E4B3C;
 }
 
 .dietary-section,
@@ -85,13 +85,13 @@
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 16px;
-  border: 1px solid rgba(245, 87, 108, 0.3);
+  border: 1px solid rgba(12, 83, 52, 0.3);
 }
 
 [data-theme="dark"] .dietary-section,
 [data-theme="dark"] .lifestyle-section {
   background: rgba(40, 40, 40, 0.5);
-  border-color: rgba(245, 87, 108, 0.5);
+  border-color: rgba(12, 83, 52, 0.5);
 }
 
 .dietary-content {
@@ -128,7 +128,7 @@
   content: '✓';
   position: absolute;
   left: 0;
-  color: #f5576c;
+  color: #1E4B3C;
   font-weight: bold;
 }
 
@@ -156,7 +156,7 @@
   max-width: 400px;
   margin: 2rem auto 0;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+  background: linear-gradient(135deg, #1E4B3C 0%, #2A7D5E 100%);
   color: white;
   border: none;
   border-radius: 50px;
@@ -164,12 +164,12 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+  box-shadow: 0 4px 15px rgba(12, 83, 52, 0.4);
 }
 
 .download-pdf-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
+  box-shadow: 0 8px 25pxrgb(12, 83, 52, 0.6);
 }
 
 .download-pdf-button:active {
