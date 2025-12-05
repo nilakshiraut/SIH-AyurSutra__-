@@ -3,13 +3,15 @@
   gap: 0.75rem;
   align-items: flex-end;
   animation: slideIn 0.3s ease;
-  max-width: 80%;
+  max-width: 100%;
 }
 
 .message-user {
   align-self: flex-end;
   flex-direction: row-reverse;
   margin-left: auto;
+  /* Allow user messages to take more width */
+  max-width: 100%; /* Increased from around 80% */
 }
 
 .message-bot {
@@ -59,6 +61,8 @@
   box-shadow: 0 4px 12px rgba(30, 75, 60, 0.15);
   /* Optional gradient for depth */
   background: linear-gradient(135deg, #1E4B3C 0%, #2A7D5E 100%);
+  /* Increased max-width for user messages */
+  max-width: 85%; /* Changed from implicit 70-75% to 85% */
 }
 
 .message-text {

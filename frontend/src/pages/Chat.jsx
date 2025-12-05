@@ -96,7 +96,7 @@ const Chat = () => {
                   </div>
                 )}
                 <button className="download-pdf-button" onClick={handleDownloadPDF}>
-                  📥 Download PDF Report
+                    Download PDF Report
                 </button>
               </div>
             </div>

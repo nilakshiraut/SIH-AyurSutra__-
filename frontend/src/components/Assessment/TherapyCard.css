@@ -23,18 +23,17 @@
 /* IMAGE CONTAINER - FIXED */
 .therapy-image-container {
   position: relative;
-  min-height: 320px; /* Minimum height */
-  height: auto; /* Let it grow if needed */
-  width: 100%;
+  height: auto;
+  width: fit-content;
+  margin: 0 auto 1.5rem auto; 
   border-radius: 12px;
-  overflow: visible; /* Changed from hidden to visible */
-  margin-bottom: 1.5rem;
+  overflow: hidden; 
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 20px;
 }
 
 /* For taller images like Raktamokshana */
@@ -53,6 +52,7 @@
   max-height: 340px; /* Adjusted for container */
   object-fit: cover;
   display: block;
+  border-radius: 12px;
   transition: transform 0.5s ease;
   background: #FFFFFF;
 }
