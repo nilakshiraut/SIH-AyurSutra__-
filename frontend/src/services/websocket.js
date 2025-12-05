@@ -28,19 +28,14 @@ class WebSocketService {
     }
     console.log('WebSocket service: Using session ID:', this.sessionId)
     // Use environment variables for production URLs
-    let baseUrl
-    if (typeof __WS_URL__ !== 'undefined') {
-      baseUrl = __WS_URL__ + '/ws'
-    } else if (import.meta.env.VITE_WS_URL) {
-      baseUrl = import.meta.env.VITE_WS_URL
-    } else {
-      // Development fallback with Vite proxy
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-      baseUrl = `${protocol}//${window.location.host}/ws`
-    }
-    const wsUrl = `${baseUrl}/chat?session_id=${this.sessionId}`
-    
-    console.log('Connecting to WebSocket:', wsUrl)
+
+    let wsBase = import.meta.env.VITE_WS_URL
+      ? import.meta.env.VITE_WS_URL.replace(/\/$/, "")  
+      : `${window.location.protocol === "https:" ? "wss:" : "ws:"}//${window.location.host}`
+
+    const wsUrl = `${wsBase}/ws/chat?session_id=${this.sessionId}`
+
+    console.log("Connecting to WebSocket:", wsUrl)
 
     return new Promise((resolve, reject) => {
       try {
