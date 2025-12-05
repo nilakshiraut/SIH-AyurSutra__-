@@ -3,6 +3,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Chat from './pages/Chat'
 import Results from './pages/Results'
 
+// Debug environment variables
+console.log('🚀 AyurSutra App Loading...')
+console.log('Environment Variables:')
+console.log('VITE_API_URL:', import.meta.env.VITE_API_URL)
+console.log('__API_URL__:', typeof __API_URL__ !== 'undefined' ? __API_URL__ : 'undefined')
+console.log('VITE_WS_URL:', import.meta.env.VITE_WS_URL)
+console.log('__WS_URL__:', typeof __WS_URL__ !== 'undefined' ? __WS_URL__ : 'undefined')
+
 function App() {
   return (
     <Router>
