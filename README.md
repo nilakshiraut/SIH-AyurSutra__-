@@ -30,38 +30,104 @@ A modern, interactive chatbot application that determines a user's Ayurvedic Dos
 ## 📁 Project Structure
 
 ```
-ayursutra/
-├── backend/
-│   ├── app.py                 # FastAPI main application
-│   ├── Training/
-│   │   ├── botmodel.py        # NLP chatbot training
-│   │   ├── prakritimodel.py   # Dosha classification model
-│   │   ├── panchakarma_model.py # Therapy recommendation logic
-│   │   └── intents.json       # Chatbot intents
-│   ├── Models/                # Saved trained models
-│   ├── database/
-│   │   ├── models.py          # SQLAlchemy models
-│   │   └── database.py        # DB connection
-│   ├── routes/
-│   │   ├── chat.py            # WebSocket chat endpoint
-│   │   ├── assessment.py      # Dosha assessment endpoints
-│   │   └── pdf.py             # PDF generation endpoint
-│   ├── utils/
-│   │   ├── nlp_processor.py   # NLP utilities
-│   │   └── pdf_generator.py   # PDF creation logic
-│   └── requirements.txt
+AyurSutra-Chatbot/
+├── backend/                                  # FastAPI Backend Server
+│   ├── app.py                                # Main FastAPI application
+│   ├── ayursutra.db                           # SQLite database file
+│   ├── requirements.txt                       # Python dependencies
+│   ├── run_training.py                        # ML model training script
+│   ├── setup.py                               # Package setup configuration
+│   │
+│   ├── database/                              # Database Layer
+│   │   ├── __init__.py
+│   │   ├── database.py                        # SQLAlchemy engine setup
+│   │   └── models.py                          # Database models
+│   │
+│   ├── Models/                                # ML Model Files
+│   │   ├── chatbot_model.pkl                  # Trained chatbot model
+│   │   ├── intents.pkl                        # Intent classification data
+│   │   ├── panchakarma_recommendations.pkl
+│   │   └── prakriti_weights.pkl               # Dosha prediction weights
+│   │
+│   ├── routes/                                # API Endpoints
+│   │   ├── __init__.py
+│   │   ├── assessment.py                      # Dosha assessment logic
+│   │   ├── chat.py                            # Chatbot conversation handling
+│   │   └── pdf.py                             # PDF generation endpoints
+│   │
+│   ├── Training/                              # ML Training Scripts & Data
+│   │   ├── __init__.py
+│   │   ├── botmodel.py                        # Chatbot model training
+│   │   ├── intents.json                       # Training intents
+│   │   ├── panchakarma_model.py               # Therapy recommendation model
+│   │   └── prakritimodel.py                   # Dosha prediction model
+│   │
+│   └── utils/                                 # Utility Functions
+│       ├── __init__.py
+│       ├── nlp_processor.py                   # Text processing utilities
+│       └── simple_pdf_generator.py            # PDF report generator
 │
-├── frontend/
-│   ├── src/
-│   │   ├── components/        # React components
-│   │   ├── pages/             # Page components
-│   │   ├── services/          # WebSocket service
-│   │   ├── store/             # State management
-│   │   └── styles/            # Global styles
-│   ├── package.json
-│   └── vite.config.js
+├── frontend/                                  # React Frontend (Vite + React)
+│   ├── index.html                             # Root HTML template
+│   ├── package.json                           # Frontend dependencies
+│   ├── package-lock.json                      # Dependency lock file
+│   ├── vite.config.js                         # Vite configuration
+│   │
+│   ├── public/                                # Static Assets
+│   │   └── _redirects                         # SPA routing support
+│   │
+│   └── src/                                   # React Application Source
+│       ├── App.jsx                            # Main app component
+│       ├── main.jsx                           # Application entry point
+│       │
+│       ├── components/                         # Reusable Components
+│       │   ├── Chat/
+│       │   │   ├── ChatContainer.jsx
+│       │   │   ├── ChatContainer.css
+│       │   │   ├── MessageBubble.jsx
+│       │   │   ├── MessageBubble.css
+│       │   │   ├── InputBox.jsx
+│       │   │   ├── InputBox.css
+│       │   │   ├── TypingIndicator.jsx
+│       │   │   └── TypingIndicator.css
+│       │   │
+│       │   ├── Assessment/
+│       │   │   ├── DoshaResult.jsx
+│       │   │   ├── DoshaResult.css
+│       │   │   ├── TherapyCard.jsx
+│       │   │   └── TherapyCard.css
+│       │   │
+│       │   └── UI/
+│       │       ├── Avatar.jsx
+│       │       └── Avatar.css
+│       │
+│       ├── pages/
+│       │   ├── Chat.jsx
+│       │   ├── Chat.css
+│       │   ├── Results.jsx
+│       │   └── Results.css
+│       │
+│       ├── services/
+│       │   └── websocket.js                   # WebSocket real-time client
+│       │
+│       ├── store/
+│       │   └── chatStore.js                   # Zustand global state
+│       │
+│       └── styles/
+│           └── global.css                     # Global styling
 │
-└── README.md
+├── Images/                                    # Therapy Images
+│   ├── Basti.png
+│   ├── Nasya.png
+│   ├── Raktamokshana.png
+│   ├── vamana.png
+│   └── Virechana.png
+│
+└── Documentation/                             # Project Documentation
+    ├── PROJECT_SUMMARY.md
+    ├── QUICKSTART.md
+    └── README.md
+
 ```
 
 ## 🚀 Setup Instructions
