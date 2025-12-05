@@ -240,8 +240,9 @@ async def websocket_endpoint(websocket: WebSocket):
         await manager.connect(websocket, session_id)
         session = manager.user_sessions[session_id]
         
-        # Send welcome message ONLY ONCE
-        if not session['has_sent_welcome']:
+        # Send welcome message ONLY ONCE per session
+        if not session.get('has_sent_welcome', False):
+            print(f"Sending welcome message to session {session_id}")
             await manager.send_personal_message({
                 'type': 'message',
                 'sender': 'bot',
@@ -249,6 +250,9 @@ async def websocket_endpoint(websocket: WebSocket):
                 'timestamp': datetime.now().isoformat()
             }, session_id)
             session['has_sent_welcome'] = True
+            print(f"Welcome message sent and flagged for session {session_id}")
+        else:
+            print(f"Welcome message already sent for session {session_id}, skipping")
         
         while True:
             # Wait for user message

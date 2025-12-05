@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Dict, Any
-from utils.pdf_generator import generate_pdf_report
+from utils.simple_pdf_generator import generate_pdf_report
 import os
 
 router = APIRouter()
@@ -25,15 +25,16 @@ async def generate_pdf(request: PDFRequest):
             request.dosha_results,
             request.panchakarma_recs
         )
-        
+
         if not os.path.exists(pdf_path):
-            raise HTTPException(status_code=500, detail="PDF generation failed")
-        
+            raise HTTPException(status_code=500, detail="PDF file was not generated")
+
         return FileResponse(
             pdf_path,
             media_type='application/pdf',
             filename='ayursutra_assessment_report.pdf'
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        print(f"PDF generation error: {e}")
+        raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
 
