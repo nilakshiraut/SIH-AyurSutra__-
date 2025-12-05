@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
+import WebSocketService from '../services/websocket'
 import { useNavigate } from 'react-router-dom'
+import WebSocketService from '../services/websocket' 
 import ChatContainer from '../components/Chat/ChatContainer'
 import DoshaResult from '../components/Assessment/DoshaResult'
 import TherapyCard from '../components/Assessment/TherapyCard'
@@ -11,16 +13,13 @@ const Chat = () => {
   const { doshaResults, panchakarmaRecs, assessmentComplete, resetChat } = useChatStore()
 
   useEffect(() => {
-    // Reset chat when component unmounts
-    return () => {
-      // Don't reset on unmount to preserve state
+      return () => {
+   
     }
   }, [])
 
-  // Auto-scroll to results when assessment is complete
   useEffect(() => {
     if (assessmentComplete) {
-      // Small delay to ensure DOM is updated
       setTimeout(() => {
         const resultsSection = document.querySelector('.results-section')
         if (resultsSection) {
@@ -32,6 +31,59 @@ const Chat = () => {
       }, 500)
     }
   }, [assessmentComplete])
+
+
+useEffect(() => {
+  let mounted = true
+
+  const onConnected = () => console.log("WS connected")
+  const onDisconnected = () => console.log("WS disconnected")
+  const onMessage = (data) => {
+    console.log("WS message received:", data)
+    if (!data) return
+
+    if (data.type === "message" || data.type === "typing") {
+      useChatStore.getState().addMessage({
+        sender: data.sender || "bot",
+        text: data.text || "",
+        timestamp: data.timestamp || new Date().toISOString(),
+        type: data.type
+      })
+    } 
+    else if (data.type === "question") {
+      useChatStore.getState().addQuestion(data)
+    } 
+    else if (data.type === "assessment_complete") {
+      useChatStore.getState().setAssessmentComplete(true)
+      useChatStore.getState().setDoshaResults(data.dosha_results)
+      useChatStore.getState().setPanchakarmaRecs(data.panchakarma_recs)
+    }
+  }
+
+  async function initWS() {
+    try {
+      await WebSocketService.connect()
+      if (!mounted) return
+
+      WebSocketService.on("connected", onConnected)
+      WebSocketService.on("disconnected", onDisconnected)
+      WebSocketService.on("message", onMessage)
+
+    } catch (err) {
+      console.error("Failed to connect WS", err)
+    }
+  }
+
+  initWS()
+
+  return () => {
+    mounted = false
+    WebSocketService.off("connected", onConnected)
+    WebSocketService.off("disconnected", onDisconnected)
+    WebSocketService.off("message", onMessage)
+    WebSocketService.disconnect()
+  }
+}, [])
 
   const handleDownloadPDF = async () => {
     try {
