@@ -27,18 +27,16 @@ class WebSocketService {
       this.sessionId = sessionId || this.generateSessionId()
     }
     console.log('WebSocket service: Using session ID:', this.sessionId)
-    // In development, use Vite proxy. In production, use direct URL
-    const isDev = import.meta.env.DEV
+    // Use environment variables for production URLs
     let baseUrl
-    if (import.meta.env.VITE_WS_URL) {
+    if (typeof __WS_URL__ !== 'undefined') {
+      baseUrl = __WS_URL__ + '/ws'
+    } else if (import.meta.env.VITE_WS_URL) {
       baseUrl = import.meta.env.VITE_WS_URL
-    } else if (isDev) {
-      // Use Vite proxy in development
+    } else {
+      // Development fallback with Vite proxy
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
       baseUrl = `${protocol}//${window.location.host}/ws`
-    } else {
-      // Fallback for production
-      baseUrl = 'ws://127.0.0.1:8000/ws'
     }
     const wsUrl = `${baseUrl}/chat?session_id=${this.sessionId}`
     

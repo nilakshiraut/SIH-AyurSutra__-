@@ -39,7 +39,7 @@ const Chat = () => {
       console.log('Dosha results:', doshaResults)
       console.log('Panchakarma recs:', panchakarmaRecs)
 
-      const apiUrl = import.meta.env.VITE_API_URL || '';
+      const apiUrl = import.meta.env.VITE_API_URL || __API_URL__;
       const requestUrl = `${apiUrl}/api/pdf/generate`
       console.log('Making request to:', requestUrl)
 
