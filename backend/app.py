@@ -42,6 +42,11 @@ reports_dir = os.path.join(os.path.dirname(__file__), 'reports')
 os.makedirs(reports_dir, exist_ok=True)
 app.mount("/reports", StaticFiles(directory=reports_dir), name="reports")
 
+# Serve React frontend build
+frontend_build_dir = os.path.join(os.path.dirname(__file__), "../frontend/build")
+app.mount("/", StaticFiles(directory=frontend_build_dir, html=True), name="frontend")
+
+
 @app.get("/")
 async def root():
     return {
@@ -61,6 +66,12 @@ async def health_check():
 @app.get("/keepalive")
 def keep_alive():
     return {"status": "awake"}
+
+@app.get("/{full_path:path}")
+async def serve_spa(full_path: str):
+    index_path = os.path.join(os.path.dirname(__file__), "../frontend/build/index.html")
+    return FileResponse(index_path)
+
 
 if __name__ == "__main__":
     import uvicorn
