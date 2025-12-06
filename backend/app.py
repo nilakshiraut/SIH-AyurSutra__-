@@ -38,9 +38,9 @@ app.add_middleware(
 )
 
 # Routers
-app.include_router(chat.router)
-app.include_router(assessment.router)
-app.include_router(pdf.router)
+app.include_router(chat.router, prefix="/chat")
+app.include_router(assessment.router, prefix="/assessment")
+app.include_router(pdf.router, prefix="/pdf")
 
 # PDF Reports
 reports_dir = os.path.join(os.path.dirname(__file__), 'reports')
