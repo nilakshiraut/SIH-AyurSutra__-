@@ -78,10 +78,6 @@ def keep_alive():
     return {"status": "awake"}
 
 
-@app.get("/{full_path:path}")
-async def serve_spa(full_path: str):
-    index_path = os.path.join(os.path.dirname(__file__), "../frontend/build/index.html")
-    return FileResponse(index_path)
 
 if __name__ == "__main__":
     import uvicorn
