@@ -29,11 +29,8 @@ class WebSocketService {
     console.log('WebSocket service: Using session ID:', this.sessionId)
     // Use environment variables for production URLs
 
-    let wsBase = import.meta.env.VITE_WS_URL
-      ? import.meta.env.VITE_WS_URL.replace(/\/$/, "")  
-      : `${window.location.protocol === "https:" ? "wss:" : "ws:"}//${window.location.host}`
+    const wsUrl = `wss://sih-ayursutra.onrender.com/ws/chat?session_id=${this.sessionId}`;
 
-    const wsUrl = `${wsBase}/ws/chat?session_id=${this.sessionId}`
 
     console.log("Connecting to WebSocket:", wsUrl)
 
