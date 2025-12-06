@@ -2,6 +2,7 @@
 AyurSutra - Main FastAPI Application
 Ayurvedic Dosha Detection & Panchakarma Recommendation Chatbot
 """
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -37,7 +38,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Routers
+# ---- API ROUTES ----
 app.include_router(chat.router, prefix="/chat")
 app.include_router(assessment.router, prefix="/assessment")
 app.include_router(pdf.router, prefix="/pdf")
@@ -52,26 +53,23 @@ app.mount("/reports", StaticFiles(directory=reports_dir), name="reports")
 async def health_check():
     return {"status": "healthy"}
 
-
 @app.get("/keepalive")
 def keep_alive():
     return {"status": "awake"}
-
 
 # ---- SERVE FRONTEND (VITE DIST) ----
 frontend_dist = os.path.join(os.path.dirname(__file__), "../frontend/dist")
 
 if os.path.exists(frontend_dist):
-    # Step 1: Serve static files
-    app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="frontend")
+    # Serve static assets under /static
+    app.mount("/static", StaticFiles(directory=frontend_dist), name="frontend_static")
 
-    # Step 2: Handle React Router refresh
+    # Handle React Router paths
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
         return FileResponse(os.path.join(frontend_dist, "index.html"))
 
-
-# Run locally
+# ---- RUN LOCALLY ----
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
