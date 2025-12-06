@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+websockets
+python-multipart
+sqlalchemy
+pydantic
+pydantic-settings
+nltk==3.8.1
+scikit-learn
+numpy
+pandas
+reportlab==4.0.7
+python-dotenv==1.0.0
+aiofiles==23.2.1
+jinja2==3.1.2
